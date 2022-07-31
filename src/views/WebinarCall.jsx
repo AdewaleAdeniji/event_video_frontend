@@ -281,6 +281,7 @@ const WebinarCall = () => {
         {/* Daily video call iframe */}
         <VideoContainer height={"100%"} hidden={currentView !== "call"}>
           <CallFrame ref={videoRef} />
+          <InCallSupportMessage />
         </VideoContainer>
 
         {/* Additional UI depending on current state of call */}
@@ -290,7 +291,7 @@ const WebinarCall = () => {
 
         {/* Show any error messages we're aware of */}
         {error && <ErrorText>Error: {error}</ErrorText>}
-      <InCallSupportMessage />
+
       </FlexContainer>
       {/* Extra message with Daily custom support info */}
     </FlexContainerColumn>

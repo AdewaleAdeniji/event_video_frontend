@@ -8,7 +8,6 @@ import React, {
 import DailyIframe from "@daily-co/daily-js";
 import styled from "styled-components";
 import { useParams, useLocation, useSearchParams } from "react-router-dom";
-import Chat from "../components/Chat";
 import LeftCall from "../components/LeftCall";
 import Loading from "../components/Loading";
 import { InstructionText } from "../components/List";
@@ -23,8 +22,7 @@ const CALL_OPTIONS = {
   iframeStyle: {
     width: "100%",
     height: "100%",
-    border: "1px solid #e6eaef",
-    borderRadius: "6px 6px 0 0",
+    border: "none",
     boxShadow: `0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02),
     0 4px 8px rgba(0, 0, 0, 0.02), 0 8px 16px rgba(0, 0, 0, 0.02),
     0 16px 32px rgba(0, 0, 0, 0.02)`,
@@ -41,10 +39,10 @@ const WebinarCall = () => {
   const [currentView, setCurrentView] = useState("loading"); // loading | call | waiting | error | left-call
   const [callFrame, setCallFrame] = useState(null);
   const [error, setError] = useState(null);
-  const [height, setHeight] = useState(400);
+  const [, setHeight] = useState(400);
   const [roomInfo, setRoomInfo] = useState(null); // {token?: string, accountType: 'participant' | 'admin', username: string, url: string }
   const [startTime, setStartTime] = useState(null);
-  const [joined, setJoined] = useState(false);
+  const [, setJoined] = useState(false);
 
   const { roomName } = useParams();
   const { search } = useLocation();
@@ -157,7 +155,7 @@ const WebinarCall = () => {
   }, [roomName]);
 
   const validateTokenProvided = useCallback(async () => {
-    const token = searchParams.get("t");
+    const token = searchParams.get("token");
 
     // validate the token from the URL if supplied
     const tokenInfo = await fetchDailyToken(token);
@@ -281,7 +279,7 @@ const WebinarCall = () => {
     <FlexContainerColumn>
       <FlexContainer>
         {/* Daily video call iframe */}
-        <VideoContainer height={height} hidden={currentView !== "call"}>
+        <VideoContainer height={"100%"} hidden={currentView !== "call"}>
           <CallFrame ref={videoRef} />
         </VideoContainer>
 
@@ -289,25 +287,24 @@ const WebinarCall = () => {
         {renderCurrentViewUI}
 
         {/* Only show chat when call is officially joined (in case pre-join UI is enabled) */}
-        {joined && (
-          <Chat
-            callFrame={callFrame}
-            accountType={roomInfo.accountType}
-            height={height}
-            username={roomInfo.username}
-          />
-        )}
 
         {/* Show any error messages we're aware of */}
         {error && <ErrorText>Error: {error}</ErrorText>}
+      <InCallSupportMessage />
       </FlexContainer>
       {/* Extra message with Daily custom support info */}
-      {currentView === "call" && <InCallSupportMessage />}
     </FlexContainerColumn>
   );
 };
 
 const FlexContainer = styled.div`
+  position: fixed;
+  height: 100vh;
+  top:0;
+  bottom: 0;
+  right: 0;
+  left:0;
+  width:100vw;
   display: flex;
   align-items: stretch;
   flex-wrap: wrap;
@@ -328,7 +325,6 @@ const ErrorText = styled(InstructionText)`
 `;
 const VideoContainer = styled.div`
   flex: 1.2;
-  margin: 1rem;
   flex-basis: 400px;
   background-color: white;
   height: ${(props) => (props.hidden ? "100" : props.height)}px;

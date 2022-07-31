@@ -3,14 +3,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import theme from "../theme";
 import Anchor from "./Anchor";
-import logo from "./images/logo.svg";
 
 const Header = () => {
   return (
     <Container>
       <LogoContainer>
         <Link to="/">
-          <Logo src={logo} />
+          <Logo src={'https://ordaley.netlify.app/img/favicon.png'} />
         </Link>
       </LogoContainer>
       <Anchor underline={false} href="https://dashboard.daily.co/signup">

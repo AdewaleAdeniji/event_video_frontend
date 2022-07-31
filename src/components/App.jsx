@@ -4,11 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import theme from "../theme";
 import WebinarCall from "../views/WebinarCall";
 import Home from "../views/Home";
-import Header from "./Header";
 import decorativeSlash1 from "./images/slash1.svg";
 import decorativeSlash2 from "./images/slash2.svg";
 import decorativeSlash3 from "./images/slash3.svg";
-import Footer from "./Footer";
 
 const App = () => {
   return (
@@ -19,12 +17,10 @@ const App = () => {
         <BackgroundImg3 src={decorativeSlash3} alt=" " />
       </ImageContainer>
       <Body>
-        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:roomName" element={<WebinarCall />} />
         </Routes>
-        <Footer />
       </Body>
     </Container>
   );
@@ -63,16 +59,15 @@ const Body = styled.div`
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding: 2rem 3rem;
   height: 100%;
   position: relative;
-  display: flex;
+  // display: flex;
   flex-direction: column;
   min-height: 100vh;
   box-sizing: border-box;
 
   @media (max-width: 500px) {
-    padding: 1rem;
+    
   }
 `;
 

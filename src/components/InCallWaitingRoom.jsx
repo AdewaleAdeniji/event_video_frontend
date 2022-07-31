@@ -55,20 +55,15 @@ const InCallWaitingRoom = ({ startTime, error, joinCall }) => {
               ask questions
             </HintListItemText>
           </HintListItem>
-          <HintListItem>
-            <Icon src={checkmark} />
-            <HintListItemText>
-              We encourage you to use this call to clarify any questions you may
-              have!
-            </HintListItemText>
-          </HintListItem>
+          
         </HintList>
       </SubContainer>
       <Form onSubmit={handleSubmitNameForm}>
         <FormHeader>Before joining, please introduce yourself:</FormHeader>
         <Label htmlFor="username">Your name</Label>
         <Input ref={inputRef} id="username" type="text" required />
-        <SubmitButton type="submit" value="Join our call" disabled={error} />
+        <SubmitButton type="submit" value="Join Event!" disabled={error} />
+        <InCallWaitingRoom/>
       </Form>
     </Container>
   );

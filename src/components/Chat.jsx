@@ -11,7 +11,7 @@ const Chat = ({ callFrame, accountType, username }) => {
     message:
       accountType === ADMIN
         ? "Chat messages will display here."
-        : "Only the Daily team can see your message. We'll answer during the Q&A period.",
+        : "Send messages here..",
     type: "info",
     username: null,
     to: null,
@@ -119,18 +119,27 @@ const Chat = ({ callFrame, accountType, username }) => {
       // otherwise, you're an attendee trying to message a host
       else {
         // attendees' messages are sent to the host(s), which could be 1 or more participants
-        const ids = Object.keys(participants);
-        ids.forEach((id) => {
-          if (participants[id]?.owner) {
-            sendToList.push({
-              id: participants[id].session_id,
-              username: participants[id].user_name,
-              type: "toAdmin",
-              to: "Host(s)",
-              from,
-            });
-          }
-        });
+        sendToList = [
+          {
+            id: adminSendToType,
+            username: "Everyone",
+            type: "broadcast",
+            to: "Everyone",
+            from,
+          },
+        ];
+        // const ids = Object.keys(participants);
+        // ids.forEach((id) => {
+        //   if (participants[id]?.owner) {
+        //     sendToList.push({
+        //       id: participants[id].session_id,
+        //       username: participants[id].user_name,
+        //       type: "toAdmin",
+        //       to: "Host(s)",
+        //       from,
+        //     });
+        //   }
+        // });
       }
 
       // If a participant sends a message and there's not host, there's no one to receive it. :(
@@ -294,9 +303,9 @@ const Chat = ({ callFrame, accountType, username }) => {
                 <SubmitButton
                   value={`Send ${
                     accountType !== ADMIN
-                      ? "to host"
+                      ? ""
                       : adminSendToType === "*"
-                      ? "broadcast"
+                      ? "Message"
                       : "DM"
                   }`}
                   type="submit"

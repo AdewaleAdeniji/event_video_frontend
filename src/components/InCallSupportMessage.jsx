@@ -4,6 +4,15 @@ import styled from "styled-components";
 import theme from "../theme";
 
 const InCallSupportMessage = () => (
+  <>
+  <HelpText>
+    Created with {" "}
+    <Anchor
+      href="https://ordaley.netlify.app"
+      color={theme.colors.orange}
+    >
+      Ordaley</Anchor>
+  </HelpText>
   <HelpText>
     Having trouble connecting?{" "}
     <Anchor
@@ -14,17 +23,20 @@ const InCallSupportMessage = () => (
     </Anchor>
     , or{" "}
     <Anchor
-      href="https://www.daily.co/contact/support?utm_source=webinar"
+      href="mailto:info.ordaley@gmail.com"
       color={theme.colors.orange}
     >
-      contact our support
-    </Anchor>{" "}
-    via chat or email.
+      contact our support {" "}
+    </Anchor>
+     via email.
   </HelpText>
+  </>
 );
 
 const HelpText = styled(BodyText)`
-  margin: 1rem;
+  margin: .2rem;
+  margin-left: 1rem;
+  padding:2px;
 `;
 
 export default InCallSupportMessage;
